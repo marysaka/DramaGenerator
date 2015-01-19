@@ -1,0 +1,35 @@
+apply plugin: 'java'
+apply plugin: 'eclipse'
+apply plugin: 'application'
+
+group = 'eu.thog92'
+archivesBaseName = 'DramaGenerator'
+mainClassName = 'eu.thog92.dramagen.DramaGenerator'
+version = 1.0
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    compile 'org.twitter4j:twitter4j-core:4.0.2'
+}
+
+processResources
+{
+		include '**/*.properties'
+		filter(org.apache.tools.ant.filters.ReplaceTokens, tokens: [
+		'CKEY': consumerKey,
+		'CSECRETKEY': consumerSecret,
+		'ACTOKEN': accessToken,
+		'ACTOKENSECRET': accessTokenSecret])
+}
+
+task allInOneJar(type: Jar) {
+	manifest {
+        attributes 'Main-Class': mainClassName
+    }
+    classifier = 'all'
+    from { configurations.compile.collect { it.isDirectory() ? it : zipTree(it) } }
+    with jar
+}

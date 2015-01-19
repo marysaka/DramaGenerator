@@ -1,0 +1,15 @@
+malware
+spyware
+adware
+DRM
+viruses
+trojans
+keyloggers
+stolen code
+easter eggs
+potential login stealers
+adf.ly links
+bad code
+stolen assets
+malicious code
+secret backdoors

@@ -1,0 +1,5 @@
+says
+tweets
+claims
+confirms
+denies

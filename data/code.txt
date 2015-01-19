@@ -1,0 +1,13 @@
+code
+assets
+ideas
+concepts
+a single function
+5 lines of code
+a class
+a few files
+a ZIP file
+a JAR file
+Gradle buildscripts
+a GitHub repository
+a BitBucket repository

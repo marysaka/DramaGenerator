@@ -1,0 +1,6 @@
+worse
+better
+faster
+slower
+more stable
+less buggy
