@@ -1,4 +1,4 @@
-package eu.thog92.dramagen;
+package eu.thog92.dramagen.util;
 
 import java.io.BufferedWriter;
 import java.io.File;
