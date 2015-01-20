@@ -32,12 +32,15 @@ public class DramaTask extends ScheduledTask {
 	try {
 	    String result = this.randomDrama();
 	    System.out.println(result);
-	    /*
-	     * try { System.out.println("Sending to Twitter...");
-	     * twitter.updateStatus(result); System.out.println("Done. Waiting "
-	     * + delay + "s for the next tweet"); } catch (TwitterException e) {
-	     * e.printStackTrace(); }
-	     */
+
+	    try {
+		System.out.println("Sending to Twitter...");
+		twitter.updateStatus(result);
+		System.out.println("Done. Waiting " + delay
+			+ "s for the next tweet");
+	    } catch (TwitterException e) {
+		e.printStackTrace();
+	    }
 
 	} catch (IOException e) {
 	    e.printStackTrace();

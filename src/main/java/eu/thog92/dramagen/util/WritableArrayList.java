@@ -26,7 +26,7 @@ public class WritableArrayList<E> extends ArrayList<E> {
 	    try {
 		out = new BufferedWriter(new FileWriter(file.getAbsolutePath(),
 			true));
-		s = s + "\n";
+		s += "\n";
 		out.write(s, 0, s.length());
 		out.flush();
 		out.close();
