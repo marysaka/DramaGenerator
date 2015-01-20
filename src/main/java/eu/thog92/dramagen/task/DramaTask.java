@@ -63,8 +63,14 @@ public class DramaTask extends ScheduledTask {
 			String toReplace = toReplaces.group(1);
 			List<String> targetReplacementList = dictionary.get(toReplace);
 			int replacementID = rand.nextInt(targetReplacementList.size());
+			String modifier = "";
+			
+			//TODO: Find a better way to handle $
+			if(toReplace.equals("price"))
+				modifier = "\\$";
+			
 			sentence = sentence.replaceFirst(toReplace,
-					targetReplacementList.get(replacementID));
+					targetReplacementList.get(replacementID) + modifier);
 		}
 
 		// TODO: Use a Pattern

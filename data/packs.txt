@@ -1,7 +1,12 @@
 Feed The Beast
 the ForgeCraft pack
 FTB Monster
+FTB Resurrection
 FTB Unstable
+FTB Horizons
+FTB Tech World 2
+FTB Magic World 2
+FTB Lite
 Agrarian Skies
 Direwolf20 Pack
 Tekkit

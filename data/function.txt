@@ -2,13 +2,15 @@ MJ support
 RF support
 EU support
 FMP compatibility
+BlockStates compatibility
 quarries
 automatic mining
 GregTech balance
 ComputerCraft APIs
 OpenComputers APIs
 Bukkit plugin compatibility
-MCPC+ support
+Sponge plugin compatibility
+Cauldron support
 ID allocation
 ore processing
 smelting

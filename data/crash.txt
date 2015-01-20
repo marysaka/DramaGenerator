@@ -1,9 +1,12 @@
 crash
 explode
+blast
 break
 lag
+freeze
 blow up
 corrupt chunks
 corrupt worlds
 rain hellfish
 spawn bees
+spawn thunder

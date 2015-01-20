@@ -12,8 +12,8 @@ After a [enormous] amount of requests, [packs] adds [function] to [things]
 [people] made [things] depend on [things]
 [people] bans [people] from using [things] in [packs]
 [people] complains that [things] discussion doesn't belong on [sites]
-[people] has a Patreon goal to add [function] to [things] for [price] a month
-[people] has a Patreon goal to add [things] compatibility to [things] for [price] a month
+[people] has a Patreon goal to add [function] to [things] for [price] per month
+[people] has a Patreon goal to add [things] compatibility to [things] for [price] per month
 [people] complains that [people] replaced [things] by [things]
 [people] complains that [people] replaced [things] by [things] in [packs]
 [people] complains that [people] removed [function] in [packs]
@@ -95,3 +95,5 @@ Fans of [things] and [things] argue on [sites]
 [people] [says] [people] is worse than [people]
 [people] [says] [things] is [worse] than [things]
 [people] bans [people] from [sites]
+[people] bans [people] from [ircchannel]
+[people] has issued a DMCA takedown against [things]

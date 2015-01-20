@@ -4,9 +4,12 @@ Reddit
 4chan
 Technic Forums
 IC2 Forums
+BuildCraft Forums
+MinecraftForge Forums
 GitHub
 BitBucket
-IRC
+Espernet IRC
+Espernet
 ForgeCraft
 Patreon
 BTW Forums

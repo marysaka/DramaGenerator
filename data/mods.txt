@@ -1,0 +1,109 @@
+Simply Jetpacks
+RedPower 2
+ModLoader
+RedLogic
+Forge MultiPart
+Project: Red
+BuildCraft
+Tinkers' Steelworks
+Artifice
+Roguelike Dungeons
+IndustrialCraft 2
+Equivalent Exchange
+Forestry
+RailCraft
+Simple Jetpacks
+Compact Solars
+ComputerCraft
+Wireless Redstone
+OpenComputers
+GregTech
+Ars Magica
+Thaumcraft
+Resonant Rise
+MineFactory Reloaded
+Magic Farm 2
+Cauldron
+Metallurgy
+Logistics Pipes
+Steve's Carts
+Steve's Factory Manager
+BiblioCraft
+XyCraft
+Forge
+GregTech
+OpenBlocks
+OpenPeripheral
+OpenComputers
+MFFS
+RotaryCraft
+Big Reactors
+Thermal Expansion 3
+Extra Utilities
+Universal Electricity
+Not Enough Items
+Portal Gun mod
+Too Many Items
+OptiFine
+Extra Cells
+ExtraBiomesXL
+Biomes O' Plenty
+Better than Wolves
+Schematica
+Tinker's Construct
+Natura
+Hexxit
+Iron Chests
+Not Enough Mods
+Ender IO
+Mekanism
+Pixelmon
+JABBA
+WAILA
+Opis
+CraftGuide
+Iguana Tweaks
+Tinkers Mechworks
+MineChem
+LittleMaidMob
+MCP
+Immibis' Microblocks
+Carpenter's Blocks
+Chisel
+Applied Energistics
+Applied Energistics 2
+Rotatable Blocks
+EnhancedPortals 3
+Ex Nihilo
+Ex Aliquo
+Magic Bees
+BetterStorage
+Backpacks
+Aether II
+Highlands
+Alternate Terrain Generation
+InfiCraft
+Bukkit
+Spigot
+SpoutCraft
+MortTech
+ICBM
+Galacticraft
+Modular Power Suits
+CoFHCore
+Extra Bees
+Extra Trees
+Mo' Creatures
+Grimoire of Gaia
+Atum
+Agriculture
+Sync
+Hats
+Nether Ores
+Armourer's Workshop
+Botania
+Integrated-Circuits
+MineTunes
+Emotes
+Buildcraft-Additions
+Runica
