@@ -40,4 +40,9 @@ public abstract class ScheduledTask implements ITask, Runnable {
 	public void setDelay(int delay) {
 		this.delay = delay;
 	}
+
+	public String getName() {
+		
+		return this.getClass().getSimpleName();
+	}
 }
