@@ -14,16 +14,7 @@ repositories {
 
 dependencies {
     compile 'org.twitter4j:twitter4j-core:4.0.2'
-}
-
-processResources
-{
-		include '**/*.properties'
-		filter(org.apache.tools.ant.filters.ReplaceTokens, tokens: [
-		'CKEY': consumerKey,
-		'CSECRETKEY': consumerSecret,
-		'ACTOKEN': accessToken,
-		'ACTOKENSECRET': accessTokenSecret])
+    compile 'com.esotericsoftware.yamlbeans:yamlbeans:1.08'
 }
 
 task allInOneJar(type: Jar) {

@@ -1,0 +1,8 @@
+    #Twitter
+    delay: 3600
+    sendTweetOnStartup: false
+    consumerKey: = *********************
+    consumerSecret: =******************************************
+    accessToken: =**************************************************
+    accessTokenSecret: =******************************************
+    debugTwitter: true

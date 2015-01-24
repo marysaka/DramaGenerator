@@ -2,9 +2,7 @@ package eu.thog92.dramagen.task;
 
 import eu.thog92.dramagen.Dictionary;
 import eu.thog92.dramagen.TasksManager;
-import twitter4j.Twitter;
 import twitter4j.TwitterException;
-import twitter4j.TwitterFactory;
 
 import java.io.IOException;
 import java.util.List;
@@ -14,9 +12,10 @@ import java.util.regex.Pattern;
 
 public class DramaTask extends ScheduledTask {
 
-	private Twitter twitter;
+
 	private Dictionary dictionary;
 	private Random rand;
+	private int numTweets;
 	private static final Pattern REGEX = Pattern.compile(Pattern.quote("[")
 			+ "(.*?)" + Pattern.quote("]"));
 
@@ -24,18 +23,23 @@ public class DramaTask extends ScheduledTask {
 		super(manager);
 		this.dictionary = Dictionary.getInstance();
 		this.rand = new Random();
-		this.twitter = new TwitterFactory().getInstance();
 	}
 
 	@Override
 	public boolean execute() {
+		if(numTweets == 0 && !manager.getConfig().sendTweetOnStartup){
+			System.out.println("Waiting " + delay + "s for the next tweet");
+			numTweets++;
+			return true;
+		}
+
 		try {
 			String result = this.randomDrama();
 			System.out.println(result);
 
 			try {
 				System.out.println("Sending to Twitter...");
-				twitter.updateStatus(result);
+				manager.getTwitter().updateStatus(result);
 				System.out.println("Done. Waiting " + delay
 						+ "s for the next tweet");
 			} catch (TwitterException e) {

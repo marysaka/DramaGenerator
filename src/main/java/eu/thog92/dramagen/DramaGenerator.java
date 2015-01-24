@@ -9,16 +9,17 @@ public class DramaGenerator {
 
 	private HttpServerHandlers httpServerManager;
 	private TasksManager tasksManager;
+	private DramaTask drama;
 
 	public DramaGenerator() {
 
 	}
 
-	private void init(int i) {
+	private void init() {
 		try {
 			this.tasksManager = new TasksManager();
-			DramaTask drama = new DramaTask(tasksManager);
-			drama.setDelay(i);
+			drama = new DramaTask(tasksManager);
+			drama.setDelay(tasksManager.getConfig().delay);
 			this.tasksManager.scheduleTask(drama);
 			this.httpServerManager = new HttpServerHandlers(this);
 		} catch (Exception e) {
@@ -29,17 +30,14 @@ public class DramaGenerator {
 	}
 
 	public static void main(String[] args) {
-		int i = 900;
-		if (args.length == 1)
-			i = Integer.parseInt(args[0]);
-
 		DramaGenerator instance = new DramaGenerator();
-		instance.init(i);
+		instance.init();
 	}
 
 	public void reload() {
 		try {
 			this.tasksManager.reload();
+			drama.setDelay(tasksManager.getConfig().delay);
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
