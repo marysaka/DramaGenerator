@@ -42,7 +42,7 @@ public abstract class ScheduledTask implements ITask, Runnable {
 	}
 
 	public String getName() {
-		
+
 		return this.getClass().getSimpleName();
 	}
 }
