@@ -53,7 +53,6 @@ public class TasksManager {
 				.setOAuthAccessTokenSecret(config.accessTokenSecret);
 		TwitterFactory tf = new TwitterFactory(cb.build());
 		this.twitter = tf.getInstance();
-		System.out.println("config.token" + config.accessToken);
 	}
 
 	private void loadBlackList() throws IOException {
