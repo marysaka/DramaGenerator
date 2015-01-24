@@ -55,8 +55,8 @@ public class DramaTask extends ScheduledTask {
 	List<String> sentences = dictionary.get("sentences");
 	int sentenceID = this.rand.nextInt(sentences.size());
 	String sentence = sentences.get(sentenceID);
+	boolean startWithUser = sentence.startsWith("[people]");
 	Matcher toReplaces = REGEX.matcher(sentence);
-
 	while (toReplaces.find()) {
 	    String toReplace = toReplaces.group(1);
 	    List<String> targetReplacementList = dictionary.get(toReplace);
@@ -79,7 +79,7 @@ public class DramaTask extends ScheduledTask {
 	manager.getBlackList().addAndWrite(sentence);
 
 	// Don't capitalize first character if user has special name (like iLexiconn)
-	if (!Character.isUpperCase(sentence.charAt(1)))
+	if (!startWithUser && !Character.isUpperCase(sentence.charAt(1)))
 		return sentence.substring(0, 1).toUpperCase() + sentence.substring(1);
 	else
 		return sentence;
