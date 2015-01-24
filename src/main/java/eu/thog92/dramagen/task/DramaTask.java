@@ -1,16 +1,16 @@
 package eu.thog92.dramagen.task;
 
-import java.io.IOException;
-import java.util.List;
-import java.util.Random;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
-
 import eu.thog92.dramagen.Dictionary;
 import eu.thog92.dramagen.TasksManager;
 import twitter4j.Twitter;
 import twitter4j.TwitterException;
 import twitter4j.TwitterFactory;
+
+import java.io.IOException;
+import java.util.List;
+import java.util.Random;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 public class DramaTask extends ScheduledTask {
 
@@ -77,7 +77,12 @@ public class DramaTask extends ScheduledTask {
 	    this.randomDrama();
 
 	manager.getBlackList().addAndWrite(sentence);
-	return sentence;
+
+	// Don't capitalize first character if user has special name (like iLexiconn)
+	if (!Character.isUpperCase(sentence.charAt(1)))
+		return sentence.substring(0, 1).toUpperCase() + sentence.substring(1);
+	else
+		return sentence;
     }
 
 }
