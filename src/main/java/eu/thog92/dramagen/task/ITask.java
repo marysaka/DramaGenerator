@@ -1,7 +1,7 @@
 package eu.thog92.dramagen.task;
 
-public interface ITask {
+public interface ITask<T> {
 
-	public boolean execute();
+	public T execute();
 
 }

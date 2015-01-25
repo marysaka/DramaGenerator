@@ -1,6 +1,7 @@
 package eu.thog92.dramagen;
 
 import eu.thog92.dramagen.util.ArrayListHelper;
+import eu.thog92.dramagen.util.WritableArrayList;
 
 import java.io.File;
 import java.io.IOException;
@@ -18,7 +19,7 @@ public class Dictionary {
 		System.out.println("Loading Files...");
 		for (String file : dicDir.list()) {
 			dictionary.put(
-					file.replaceAll(".txt", ""),
+					file.replace(".txt", ""),
 					ArrayListHelper.loadStringArrayFromFile(dicDir
 							.getAbsolutePath() + File.separator + file));
 		}
@@ -31,6 +32,7 @@ public class Dictionary {
 	public void reload() {
 		try {
 			this.loadCombinaisons();
+			this.loadBlackList();
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
@@ -42,5 +44,13 @@ public class Dictionary {
 
 	public static Dictionary getInstance() {
 		return INSTANCE;
+	}
+
+	public void loadBlackList() throws IOException {
+		File blackListFile = new File("blacklist.txt");
+		if (!blackListFile.exists())
+			blackListFile.createNewFile();
+
+		dictionary.put(blackListFile.getName().replace(".txt", ""), new WritableArrayList<String>(ArrayListHelper.loadStringArrayFromFile(blackListFile.getAbsolutePath()), blackListFile));
 	}
 }

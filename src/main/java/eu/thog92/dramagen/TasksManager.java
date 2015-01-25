@@ -22,7 +22,6 @@ import java.util.concurrent.TimeUnit;
 public class TasksManager {
 
 	private Twitter twitter;
-	private WritableArrayList<String> blackList;
 	private Dictionary dictionary;
 	private ScheduledExecutorService scheduler = Executors
 			.newScheduledThreadPool(100);
@@ -35,7 +34,7 @@ public class TasksManager {
 		this.dictionary = Dictionary.getInstance();
 		this.dictionary.setDir(new File("data"));
 		this.dictionary.loadCombinaisons();
-		this.loadBlackList();
+		this.dictionary.loadBlackList();
 	}
 
 	private void loadConfig() throws IOException {
@@ -55,27 +54,12 @@ public class TasksManager {
 		this.twitter = tf.getInstance();
 	}
 
-	private void loadBlackList() throws IOException {
-
-		File blackListFile = new File("blacklist.txt");
-		if (!blackListFile.exists())
-			blackListFile.createNewFile();
-		this.blackList = new WritableArrayList<String>(
-				ArrayListHelper.loadStringArrayFromFile(blackListFile
-						.getAbsolutePath()), blackListFile);
-	}
-
-	public WritableArrayList<String> getBlackList() {
-		return blackList;
-	}
 
 	public void reload() throws IOException {
 		System.out.println("Reloading Config...");
 		this.loadConfig();
 		System.out.println("Reloading Dictionary...");
 		this.dictionary.reload();
-		System.out.println("Reloading BlackList...");
-		this.loadBlackList();
 		System.out.println("Config Reloaded");
 	}
 

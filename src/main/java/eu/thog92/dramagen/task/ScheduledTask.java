@@ -2,7 +2,7 @@ package eu.thog92.dramagen.task;
 
 import eu.thog92.dramagen.TasksManager;
 
-public abstract class ScheduledTask implements ITask, Runnable {
+public abstract class ScheduledTask implements ITask<Boolean>, Runnable {
 
 	protected boolean isCancelled;
 	protected int delay;
@@ -14,6 +14,7 @@ public abstract class ScheduledTask implements ITask, Runnable {
 
 	@Override
 	public void run() {
+		//long startTime = System.currentTimeMillis();
 		try {
 			if (!this.execute())
 				this.cancel();
@@ -22,6 +23,7 @@ public abstract class ScheduledTask implements ITask, Runnable {
 			ex.printStackTrace();
 			throw new RuntimeException(ex);
 		}
+		//System.out.println("Finish task " + this.getName() + " in " + (System.currentTimeMillis() - startTime) + "ms.");
 
 	}
 

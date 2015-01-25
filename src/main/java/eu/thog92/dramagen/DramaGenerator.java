@@ -1,27 +1,27 @@
 package eu.thog92.dramagen;
 
-import eu.thog92.dramagen.http.HttpServerHandlers;
-import eu.thog92.dramagen.task.DramaTask;
+import eu.thog92.dramagen.http.HttpServerManager;
+import eu.thog92.dramagen.task.TwitterTask;
 
 import java.io.IOException;
 
 public class DramaGenerator {
 
-	private HttpServerHandlers httpServerManager;
+	private HttpServerManager httpServerManager;
 	private TasksManager tasksManager;
-	private DramaTask drama;
+	private TwitterTask drama;
 
-	public DramaGenerator() {
+	private static DramaGenerator INSTANCE = new DramaGenerator();
 
-	}
+	private DramaGenerator() {}
 
 	private void init() {
 		try {
 			this.tasksManager = new TasksManager();
-			drama = new DramaTask(tasksManager);
+			drama = new TwitterTask(tasksManager);
 			drama.setDelay(tasksManager.getConfig().delay);
 			this.tasksManager.scheduleTask(drama);
-			this.httpServerManager = new HttpServerHandlers(this);
+			this.httpServerManager = new HttpServerManager(this);
 		} catch (Exception e) {
 			e.printStackTrace();
 			System.err.println("INIT Failed! EXITING...");
@@ -41,6 +41,11 @@ public class DramaGenerator {
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
+	}
+
+	public static DramaGenerator getInstance()
+	{
+		return INSTANCE;
 	}
 
 }
