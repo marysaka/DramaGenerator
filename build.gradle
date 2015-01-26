@@ -25,3 +25,7 @@ task allInOneJar(type: Jar) {
     from { configurations.compile.collect { it.isDirectory() ? it : zipTree(it) } }
     with jar
 }
+
+artifacts {
+    archives allInOneJar
+}
