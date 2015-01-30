@@ -7,6 +7,7 @@ import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
+import java.net.URI;
 import java.net.URL;
 
 public class ResourceHandler implements HttpHandler {
@@ -30,7 +31,7 @@ public class ResourceHandler implements HttpHandler {
 			}
 			int len;
 			byte[] buf = new byte[1024];
-			ext.sendResponseHeaders(200, new File(resource.toURI()).length());
+			ext.sendResponseHeaders(200, new File(new URI(resource.getProtocol(), resource.getPath(), null)).length());
 			while ((len = in.read(buf, 0, 1024)) != -1)
 				os.write(buf, 0, len);
 			os.close();
