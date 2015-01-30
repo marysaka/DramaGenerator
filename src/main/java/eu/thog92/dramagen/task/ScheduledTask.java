@@ -16,8 +16,9 @@ public abstract class ScheduledTask implements ITask<Boolean>, Runnable {
 	public void run() {
 		//long startTime = System.currentTimeMillis();
 		try {
-			if (!this.execute())
+			if (!this.execute()) {
 				this.cancel();
+			}
 			this.manager.onFinishTask(this);
 		} catch (Exception ex) {
 			ex.printStackTrace();

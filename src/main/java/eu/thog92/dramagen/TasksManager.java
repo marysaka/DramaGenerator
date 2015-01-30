@@ -1,10 +1,7 @@
 package eu.thog92.dramagen;
 
-import com.esotericsoftware.yamlbeans.YamlException;
 import com.esotericsoftware.yamlbeans.YamlReader;
 import eu.thog92.dramagen.task.ScheduledTask;
-import eu.thog92.dramagen.util.ArrayListHelper;
-import eu.thog92.dramagen.util.WritableArrayList;
 import twitter4j.Twitter;
 import twitter4j.TwitterFactory;
 import twitter4j.conf.ConfigurationBuilder;
@@ -24,7 +21,7 @@ public class TasksManager {
 	private Twitter twitter;
 	private Dictionary dictionary;
 	private ScheduledExecutorService scheduler = Executors
-			.newScheduledThreadPool(100);
+			.newScheduledThreadPool(4);
 
 	private HashMap<ScheduledTask, ScheduledFuture<?>> activeTasks = new HashMap<ScheduledTask, ScheduledFuture<?>>();
 	private Config config;
@@ -39,8 +36,9 @@ public class TasksManager {
 
 	private void loadConfig() throws IOException {
 		File configFile = new File("config.yml");
-		if(!configFile.exists())
+		if (!configFile.exists()) {
 			throw new FileNotFoundException("Config not found");
+		}
 		YamlReader reader = new YamlReader(new FileReader(configFile));
 		config = reader.read(Config.class);
 		reader.close();
@@ -53,7 +51,6 @@ public class TasksManager {
 		TwitterFactory tf = new TwitterFactory(cb.build());
 		this.twitter = tf.getInstance();
 	}
-
 
 	public void reload() throws IOException {
 		System.out.println("Reloading Config...");
@@ -69,23 +66,24 @@ public class TasksManager {
 				task.getDelay(), TimeUnit.SECONDS));
 	}
 
-	public void resetExecutorService(){
+	public void resetExecutorService() {
 		scheduler.shutdownNow();
 		scheduler = Executors.newScheduledThreadPool(100);
 	}
 
 	public void onFinishTask(ScheduledTask task) {
 		if (task.isCancelled()) {
-			if (this.activeTasks.get(task) != null)
+			if (this.activeTasks.get(task) != null) {
 				this.activeTasks.remove(task).cancel(true);
+			}
 		}
 	}
 
-	public Twitter getTwitter(){
+	public Twitter getTwitter() {
 		return twitter;
 	}
 
-	public Config getConfig(){
+	public Config getConfig() {
 		return config;
 	}
 }

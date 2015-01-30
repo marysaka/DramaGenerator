@@ -9,4 +9,5 @@ public class Config {
 	public String accessTokenSecret;
 	public boolean debugTwitter;
 	public int delay;
+	public int port;
 }

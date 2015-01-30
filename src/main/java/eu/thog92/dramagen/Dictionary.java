@@ -14,6 +14,10 @@ public class Dictionary {
 	private HashMap<String, ArrayList<String>> dictionary;
 	private File dicDir;
 
+	public static Dictionary getInstance() {
+		return INSTANCE;
+	}
+
 	public void loadCombinaisons() throws IOException {
 		this.dictionary = new HashMap<String, ArrayList<String>>();
 		System.out.println("Loading Files...");
@@ -42,14 +46,11 @@ public class Dictionary {
 		this.dicDir = dir;
 	}
 
-	public static Dictionary getInstance() {
-		return INSTANCE;
-	}
-
 	public void loadBlackList() throws IOException {
 		File blackListFile = new File("blacklist.txt");
-		if (!blackListFile.exists())
+		if (!blackListFile.exists()) {
 			blackListFile.createNewFile();
+		}
 
 		dictionary.put(blackListFile.getName().replace(".txt", ""), new WritableArrayList<String>(ArrayListHelper.loadStringArrayFromFile(blackListFile.getAbsolutePath()), blackListFile));
 	}

@@ -6,3 +6,6 @@
     accessToken: =**************************************************
     accessTokenSecret: =******************************************
     debugTwitter: true
+
+    #HTTP Server
+    port: 1010

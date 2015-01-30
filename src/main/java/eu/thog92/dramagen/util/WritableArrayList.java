@@ -9,14 +9,13 @@ import java.util.Collection;
 
 public class WritableArrayList<E> extends ArrayList<E> {
 
+	private static final long serialVersionUID = 7959171795250720924L;
 	private File file;
 
 	public WritableArrayList(Collection<? extends E> c, File file) {
 		super(c);
 		this.file = file;
 	}
-
-	private static final long serialVersionUID = 7959171795250720924L;
 
 	@SuppressWarnings("unchecked")
 	public boolean addAndWrite(String s) {

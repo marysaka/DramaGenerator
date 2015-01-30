@@ -7,7 +7,6 @@ import eu.thog92.dramagen.DramaGenerator;
 import java.io.IOException;
 import java.io.OutputStream;
 
-
 public class RefreshHandler implements HttpHandler {
 
 	private DramaGenerator main;

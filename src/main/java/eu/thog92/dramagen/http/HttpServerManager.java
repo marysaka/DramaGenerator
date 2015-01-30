@@ -1,7 +1,9 @@
 package eu.thog92.dramagen.http;
 
 import com.sun.net.httpserver.HttpServer;
+import eu.thog92.dramagen.Config;
 import eu.thog92.dramagen.DramaGenerator;
+import eu.thog92.dramagen.http.handler.DramaHandler;
 import eu.thog92.dramagen.http.handler.RefreshHandler;
 import eu.thog92.dramagen.http.handler.ResourceHandler;
 
@@ -10,12 +12,14 @@ import java.net.InetSocketAddress;
 
 public class HttpServerManager {
 
-	public HttpServerManager(DramaGenerator instance) {
+	public HttpServerManager(DramaGenerator instance, Config cfg) {
 		HttpServer server;
 		try {
-			server = HttpServer.create(new InetSocketAddress(1010), 0);
+			server = HttpServer.create(new InetSocketAddress(cfg.port), 0);
+			server.createContext("/", new ResourceHandler());
 			server.createContext("/refresh", new RefreshHandler(instance));
-			//server.createContext("/public/", new ResourceHandler());
+			server.createContext("/drama", new DramaHandler(instance.getDramaTask()));
+
 			server.setExecutor(null); // creates a default executor
 			server.start();
 		} catch (IOException e) {
