@@ -31,7 +31,7 @@ public class ResourceHandler implements HttpHandler {
 			}
 			int len;
 			byte[] buf = new byte[1024];
-			ext.sendResponseHeaders(200, new File(new URI(resource.getProtocol(), resource.getPath(), null)).length());
+			ext.sendResponseHeaders(200, new File(resource.getFile()).length());
 			while ((len = in.read(buf, 0, 1024)) != -1)
 				os.write(buf, 0, len);
 			os.close();
