@@ -9,14 +9,34 @@ import java.nio.charset.Charset;
 
 public class DramaHandler implements HttpHandler {
 
+	private boolean plainTxt;
 	private DramaTask dramaTask;
 
-	public DramaHandler(DramaTask dramaTask) {
+	public DramaHandler(DramaTask dramaTask, boolean plain) {
 		this.dramaTask = dramaTask;
+		this.plainTxt = plain;
 	}
 
 	@Override
 	public void handle(HttpExchange ext) throws IOException {
+		if (!plainTxt)
+			this.handleWithHTML(ext);
+		else
+			this.handlePlain(ext);
+	}
+
+	private void handlePlain(HttpExchange ext) throws IOException {
+		String randomDrama = dramaTask.generateSentence(false);
+		if (randomDrama == null)
+			randomDrama = "The Minecraft Drama Generator has been bought by Microsoft.";
+
+		OutputStream os = ext.getResponseBody();
+		ext.sendResponseHeaders(200, randomDrama.length());
+		os.write(randomDrama.getBytes());
+		os.close();
+	}
+
+	private void handleWithHTML(HttpExchange ext) {
 		try {
 			OutputStream os = ext.getResponseBody();
 			InputStream in = DramaHandler.class.getResourceAsStream("/public/drama.html");
@@ -43,6 +63,5 @@ public class DramaHandler implements HttpHandler {
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-
 	}
 }

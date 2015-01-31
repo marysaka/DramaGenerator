@@ -18,10 +18,11 @@ public class HttpServerManager {
 			server = HttpServer.create(new InetSocketAddress(cfg.port), 0);
 			server.createContext("/", new ResourceHandler());
 			server.createContext("/refresh", new RefreshHandler(instance));
-			server.createContext("/drama", new DramaHandler(instance.getDramaTask()));
-
+			server.createContext("/drama", new DramaHandler(instance.getDramaTask(), false));
+			server.createContext("/api/drama", new DramaHandler(instance.getDramaTask(), true));
 			server.setExecutor(null); // creates a default executor
 			server.start();
+
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
