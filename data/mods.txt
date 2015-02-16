@@ -70,6 +70,7 @@ MCP
 Immibis' Microblocks
 Carpenter's Blocks
 Chisel
+Chisel 2
 Applied Energistics
 Applied Energistics 2
 Rotatable Blocks
@@ -107,3 +108,9 @@ MineTunes
 Emotes
 Buildcraft-Additions
 Runica
+MineTunes
+ForbiddenMagic
+Emotes
+Nova Wrapper
+MineTweaker 3
+MineTweaker
