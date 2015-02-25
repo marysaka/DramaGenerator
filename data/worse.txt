@@ -4,3 +4,4 @@ faster
 slower
 more stable
 less buggy
+stronger
