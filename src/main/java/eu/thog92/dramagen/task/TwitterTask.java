@@ -22,7 +22,7 @@ public class TwitterTask extends ScheduledTask {
         }
         String result = dramaTask.execute();
 		if(manager.getConfig().endOfSentense != null)
-			result = result + manager.getConfig().endOfSentense;
+			result = result +  " " + manager.getConfig().endOfSentense;
         System.out.println(result);
         try {
             System.out.println("Sending to Twitter...");
