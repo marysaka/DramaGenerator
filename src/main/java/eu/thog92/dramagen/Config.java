@@ -11,4 +11,5 @@ public class Config {
     public int delay;
     public int port;
 	public String endOfSentense;
+	public boolean isHTTPSeverEnabled;
 }

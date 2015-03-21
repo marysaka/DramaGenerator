@@ -1,9 +1,13 @@
 package eu.thog92.dramagen;
 
+import com.esotericsoftware.yamlbeans.YamlReader;
 import eu.thog92.dramagen.http.HttpServerManager;
 import eu.thog92.dramagen.task.DramaTask;
 import eu.thog92.dramagen.task.TwitterTask;
 
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileReader;
 import java.io.IOException;
 
 public class DramaGenerator {
@@ -13,6 +17,7 @@ public class DramaGenerator {
     private TasksManager tasksManager;
     private TwitterTask drama;
     private DramaTask dramaTask;
+	private Config config;
 
     private DramaGenerator() {
     }
@@ -28,12 +33,21 @@ public class DramaGenerator {
 
     private void init() {
         try {
-            this.tasksManager = new TasksManager();
+			File configFile = new File("config.yml");
+			if (!configFile.exists()) {
+				throw new FileNotFoundException("Config not found");
+			}
+			YamlReader reader = new YamlReader(new FileReader(configFile));
+			config = reader.read(Config.class);
+			reader.close();
+            this.tasksManager = new TasksManager(config);
             this.dramaTask = new DramaTask();
             drama = new TwitterTask(tasksManager, dramaTask);
             drama.setDelay(tasksManager.getConfig().delay);
             this.tasksManager.scheduleTask(drama);
-            this.httpServerManager = new HttpServerManager(this, this.tasksManager.getConfig());
+
+			if(config.isHTTPSeverEnabled)
+				this.httpServerManager = new HttpServerManager(this, this.tasksManager.getConfig());
         } catch (Exception e) {
             e.printStackTrace();
             System.err.println("INIT Failed! EXITING...");

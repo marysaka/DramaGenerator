@@ -18,15 +18,17 @@ import java.util.concurrent.TimeUnit;
 
 public class TasksManager {
 
-    private Twitter twitter;
+	private final Config config;
+	private Twitter twitter;
     private Dictionary dictionary;
     private ScheduledExecutorService scheduler = Executors
             .newScheduledThreadPool(4);
 
     private HashMap<ScheduledTask, ScheduledFuture<?>> activeTasks = new HashMap<ScheduledTask, ScheduledFuture<?>>();
-    private Config config;
 
-    public TasksManager() throws IOException {
+
+    public TasksManager(Config config) throws IOException {
+		this.config = config;
         this.loadConfig();
         this.dictionary = Dictionary.getInstance();
         this.dictionary.setDir(new File("data"));
@@ -35,13 +37,6 @@ public class TasksManager {
     }
 
     private void loadConfig() throws IOException {
-        File configFile = new File("config.yml");
-        if (!configFile.exists()) {
-            throw new FileNotFoundException("Config not found");
-        }
-        YamlReader reader = new YamlReader(new FileReader(configFile));
-        config = reader.read(Config.class);
-        reader.close();
         ConfigurationBuilder cb = new ConfigurationBuilder();
         cb.setDebugEnabled(config.debugTwitter)
                 .setOAuthConsumerKey(config.consumerKey)
