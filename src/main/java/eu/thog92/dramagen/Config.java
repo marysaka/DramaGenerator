@@ -10,4 +10,5 @@ public class Config {
     public boolean debugTwitter;
     public int delay;
     public int port;
+	public String endOfSentense = "";
 }

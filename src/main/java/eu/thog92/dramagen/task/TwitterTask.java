@@ -20,7 +20,7 @@ public class TwitterTask extends ScheduledTask {
             numTweets++;
             return true;
         }
-        String result = dramaTask.execute();
+        String result = dramaTask.execute() + manager.getConfig().endOfSentense;
         System.out.println(result);
         try {
             System.out.println("Sending to Twitter...");
