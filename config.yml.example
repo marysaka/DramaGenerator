@@ -9,3 +9,5 @@
 
     #HTTP Server
     port: 1010
+    isHTTPSeverEnabled: false
+    endOfSentense: '#MinecraftModdingClickbait'
