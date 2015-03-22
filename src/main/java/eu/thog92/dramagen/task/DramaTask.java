@@ -36,6 +36,9 @@ public class DramaTask implements ITask<String>
         boolean startWithUser = sentence.startsWith("[people]");
         sentence = replaceWords(sentence);
 
+        if (sentence == null || sentence.isEmpty())
+            return null;
+
         // TODO: Use a Pattern
         sentence = sentence.replace("[", "").replace("]", "");
         if (dictionary.get("blacklist").contains(sentence))
@@ -64,7 +67,7 @@ public class DramaTask implements ITask<String>
         while (toReplaces.find())
         {
             String toReplace = toReplaces.group(1);
-            List<String> targetReplacementList = dictionary.get(toReplace);
+
 
             String modifier = "";
 
@@ -78,24 +81,42 @@ public class DramaTask implements ITask<String>
                 int pos = toReplace.indexOf("=");
                 String maxStr = toReplace.substring(pos + 1, toReplace.length());
                 int num = 0;
-                while(num == 0)
+                while (num == 0)
                     num = rand.nextInt(Integer.valueOf(maxStr));
 
                 sentence = sentence.replaceFirst(toReplace, String.valueOf(num));
-
                 continue;
+            }
+            else if (toReplace.startsWith("%prime"))
+            {
+                int pos = toReplace.indexOf("=");
+                String maxStr = toReplace.substring(pos + 1, toReplace.length());
+                int maxRand = Integer.valueOf(maxStr);
+                int num = 0;
+                while (!checkForAllOneDigit(num))
+                    num = rand.nextInt(maxRand);
+
+                sentence = sentence.replaceFirst(toReplace, String.valueOf(num));
+                continue;
+            }
+
+
+            List<String> targetReplacementList = dictionary.get(toReplace);
+
+            if (targetReplacementList == null)
+            {
+                System.err.println(toReplace + "doesn't exist!");
+                return null;
             }
 
 
             int replacementID = rand.nextInt(targetReplacementList.size());
 
 
-
-
             String replacement = targetReplacementList.get(replacementID);
             Matcher subReplaces = REGEX.matcher(replacement);
 
-            if(subReplaces.find())
+            if (subReplaces.find())
             {
                 replacement = this.replaceWords(replacement);
             }
@@ -104,5 +125,21 @@ public class DramaTask implements ITask<String>
                     replacement + modifier);
         }
         return sentence;
+    }
+
+    public boolean checkForAllOneDigit(int value)
+    {
+        int manipulatedValue = value;
+        int digit = manipulatedValue % 10;
+        manipulatedValue = manipulatedValue / 10;
+        while (manipulatedValue > 0)
+        {
+            if (manipulatedValue % 10 != digit)
+            {
+                return false;
+            }
+            manipulatedValue = manipulatedValue / 10;
+        }
+        return value != 0;
     }
 }

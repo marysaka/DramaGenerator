@@ -25,6 +25,10 @@ public class TwitterTask extends ScheduledTask
             return true;
         }
         String result = dramaTask.execute();
+        if(result == null)
+        {
+            System.err.println("result is null! Abort...");
+        }
         if (manager.getConfig().endOfSentense != null)
             result = result + " " + manager.getConfig().endOfSentense;
         System.out.println(result);
