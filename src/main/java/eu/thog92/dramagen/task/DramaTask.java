@@ -75,8 +75,7 @@ public class DramaTask implements ITask<String>
             if (toReplace.equals("price"))
             {
                 modifier = "\\$";
-            }
-            else if (toReplace.startsWith("%rand"))
+            } else if (toReplace.startsWith("%rand"))
             {
                 int pos = toReplace.indexOf("=");
                 String maxStr = toReplace.substring(pos + 1, toReplace.length());
@@ -86,8 +85,7 @@ public class DramaTask implements ITask<String>
 
                 sentence = sentence.replaceFirst(toReplace, String.valueOf(num));
                 continue;
-            }
-            else if (toReplace.startsWith("%prime"))
+            } else if (toReplace.startsWith("%prime"))
             {
                 int pos = toReplace.indexOf("=");
                 String maxStr = toReplace.substring(pos + 1, toReplace.length());
