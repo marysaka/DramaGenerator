@@ -1,6 +1,7 @@
 package eu.thog92.dramagen;
 
-public class Config {
+public class Config
+{
 
     public boolean sendTweetOnStartup;
     public String consumerKey;
@@ -10,6 +11,6 @@ public class Config {
     public boolean debugTwitter;
     public int delay;
     public int port;
-	public String endOfSentense;
-	public boolean isHTTPSeverEnabled;
+    public String endOfSentense;
+    public boolean isHTTPSeverEnabled;
 }

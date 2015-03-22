@@ -1,14 +1,11 @@
 package eu.thog92.dramagen;
 
-import com.esotericsoftware.yamlbeans.YamlReader;
 import eu.thog92.dramagen.task.ScheduledTask;
 import twitter4j.Twitter;
 import twitter4j.TwitterFactory;
 import twitter4j.conf.ConfigurationBuilder;
 
 import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.FileReader;
 import java.io.IOException;
 import java.util.HashMap;
 import java.util.concurrent.Executors;
@@ -16,10 +13,11 @@ import java.util.concurrent.ScheduledExecutorService;
 import java.util.concurrent.ScheduledFuture;
 import java.util.concurrent.TimeUnit;
 
-public class TasksManager {
+public class TasksManager
+{
 
-	private final Config config;
-	private Twitter twitter;
+    private final Config config;
+    private Twitter twitter;
     private Dictionary dictionary;
     private ScheduledExecutorService scheduler = Executors
             .newScheduledThreadPool(4);
@@ -27,8 +25,9 @@ public class TasksManager {
     private HashMap<ScheduledTask, ScheduledFuture<?>> activeTasks = new HashMap<ScheduledTask, ScheduledFuture<?>>();
 
 
-    public TasksManager(Config config) throws IOException {
-		this.config = config;
+    public TasksManager(Config config) throws IOException
+    {
+        this.config = config;
         this.loadConfig();
         this.dictionary = Dictionary.getInstance();
         this.dictionary.setDir(new File("data"));
@@ -36,7 +35,8 @@ public class TasksManager {
         this.dictionary.loadBlackList();
     }
 
-    private void loadConfig() throws IOException {
+    private void loadConfig() throws IOException
+    {
         ConfigurationBuilder cb = new ConfigurationBuilder();
         cb.setDebugEnabled(config.debugTwitter)
                 .setOAuthConsumerKey(config.consumerKey)
@@ -47,7 +47,8 @@ public class TasksManager {
         this.twitter = tf.getInstance();
     }
 
-    public void reload() throws IOException {
+    public void reload() throws IOException
+    {
         System.out.println("Reloading Config...");
         this.loadConfig();
         System.out.println("Reloading Dictionary...");
@@ -55,30 +56,37 @@ public class TasksManager {
         System.out.println("Config Reloaded");
     }
 
-    public void scheduleTask(ScheduledTask task) {
+    public void scheduleTask(ScheduledTask task)
+    {
         System.out.println("Scheduling " + task.getName() + "...");
         this.activeTasks.put(task, scheduler.scheduleAtFixedRate(task, 0,
                 task.getDelay(), TimeUnit.SECONDS));
     }
 
-    public void resetExecutorService() {
+    public void resetExecutorService()
+    {
         scheduler.shutdownNow();
         scheduler = Executors.newScheduledThreadPool(100);
     }
 
-    public void onFinishTask(ScheduledTask task) {
-        if (task.isCancelled()) {
-            if (this.activeTasks.get(task) != null) {
+    public void onFinishTask(ScheduledTask task)
+    {
+        if (task.isCancelled())
+        {
+            if (this.activeTasks.get(task) != null)
+            {
                 this.activeTasks.remove(task).cancel(true);
             }
         }
     }
 
-    public Twitter getTwitter() {
+    public Twitter getTwitter()
+    {
         return twitter;
     }
 
-    public Config getConfig() {
+    public Config getConfig()
+    {
         return config;
     }
 }

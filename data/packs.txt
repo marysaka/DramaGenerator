@@ -1,5 +1,5 @@
 Feed The Beast
-the ForgeCraft pack
+the ForgeCraft
 FTB Monster
 FTB Resurrection
 FTB Unstable

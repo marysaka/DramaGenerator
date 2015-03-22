@@ -7,16 +7,19 @@ import eu.thog92.dramagen.DramaGenerator;
 import java.io.IOException;
 import java.io.OutputStream;
 
-public class RefreshHandler implements HttpHandler {
+public class RefreshHandler implements HttpHandler
+{
 
     private DramaGenerator main;
 
-    public RefreshHandler(DramaGenerator instance) {
+    public RefreshHandler(DramaGenerator instance)
+    {
         this.main = instance;
     }
 
     @Override
-    public void handle(HttpExchange ext) throws IOException {
+    public void handle(HttpExchange ext) throws IOException
+    {
         main.reload();
         String response = "Config Reloaded";
         ext.sendResponseHeaders(200, response.length());

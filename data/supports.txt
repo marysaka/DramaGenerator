@@ -1,0 +1,25 @@
+[mods]
+[mods] APIs
+FMP
+BlockStates
+Bukkit plugin
+Sponge plugin
+[energyunits]
+[energyunits]
+[energyunits]
+quarries
+automatic mining
+SMP
+achievements
+quests
+ore processing
+smelting
+crafting
+balance
+decorative blocks
+new mobs
+bundled cable
+new player data format
+microblocks
+Blutricity
+the Ore Dictionary
