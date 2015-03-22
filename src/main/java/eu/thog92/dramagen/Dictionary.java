@@ -8,20 +8,24 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
 
-public class Dictionary {
+public class Dictionary
+{
 
     private static Dictionary INSTANCE = new Dictionary();
     private HashMap<String, ArrayList<String>> dictionary;
     private File dicDir;
 
-    public static Dictionary getInstance() {
+    public static Dictionary getInstance()
+    {
         return INSTANCE;
     }
 
-    public void loadCombinaisons() throws IOException {
+    public void loadCombinaisons() throws IOException
+    {
         this.dictionary = new HashMap<String, ArrayList<String>>();
         System.out.println("Loading Files...");
-        for (String file : dicDir.list()) {
+        for (String file : dicDir.list())
+        {
             dictionary.put(
                     file.replace(".txt", ""),
                     ArrayListHelper.loadStringArrayFromFile(dicDir
@@ -29,26 +33,33 @@ public class Dictionary {
         }
     }
 
-    public ArrayList<String> get(String target) {
+    public ArrayList<String> get(String target)
+    {
         return dictionary.get(target);
     }
 
-    public void reload() {
-        try {
+    public void reload()
+    {
+        try
+        {
             this.loadCombinaisons();
             this.loadBlackList();
-        } catch (IOException e) {
+        } catch (IOException e)
+        {
             e.printStackTrace();
         }
     }
 
-    public void setDir(File dir) {
+    public void setDir(File dir)
+    {
         this.dicDir = dir;
     }
 
-    public void loadBlackList() throws IOException {
+    public void loadBlackList() throws IOException
+    {
         File blackListFile = new File("blacklist.txt");
-        if (!blackListFile.exists()) {
+        if (!blackListFile.exists())
+        {
             blackListFile.createNewFile();
         }
 

@@ -5,10 +5,12 @@ import java.io.FileReader;
 import java.io.IOException;
 import java.util.ArrayList;
 
-public class ArrayListHelper {
+public class ArrayListHelper
+{
 
     public static ArrayList<String> loadStringArrayFromFile(String file)
-            throws IOException {
+            throws IOException
+    {
 
         // System.out.println("Loading " + file.replaceAll(".txt", "") + "...");
         ArrayList<String> tmp = new ArrayList<String>();
@@ -16,7 +18,8 @@ public class ArrayListHelper {
 
         String entry = null;
 
-        while ((entry = fileIn.readLine()) != null) {
+        while ((entry = fileIn.readLine()) != null)
+        {
             tmp.add(entry);
         }
         fileIn.close();

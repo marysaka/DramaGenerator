@@ -2,25 +2,31 @@ package eu.thog92.dramagen.task;
 
 import eu.thog92.dramagen.TasksManager;
 
-public abstract class ScheduledTask implements ITask<Boolean>, Runnable {
+public abstract class ScheduledTask implements ITask<Boolean>, Runnable
+{
 
     protected boolean isCancelled;
     protected int delay;
     protected TasksManager manager;
 
-    public ScheduledTask(TasksManager manager) {
+    public ScheduledTask(TasksManager manager)
+    {
         this.manager = manager;
     }
 
     @Override
-    public void run() {
+    public void run()
+    {
         //long startTime = System.currentTimeMillis();
-        try {
-            if (!this.execute()) {
+        try
+        {
+            if (!this.execute())
+            {
                 this.cancel();
             }
             this.manager.onFinishTask(this);
-        } catch (Exception ex) {
+        } catch (Exception ex)
+        {
             ex.printStackTrace();
             throw new RuntimeException(ex);
         }
@@ -28,23 +34,28 @@ public abstract class ScheduledTask implements ITask<Boolean>, Runnable {
 
     }
 
-    public boolean isCancelled() {
+    public boolean isCancelled()
+    {
         return isCancelled;
     }
 
-    protected void cancel() {
+    protected void cancel()
+    {
         this.isCancelled = true;
     }
 
-    public int getDelay() {
+    public int getDelay()
+    {
         return delay;
     }
 
-    public void setDelay(int delay) {
+    public void setDelay(int delay)
+    {
         this.delay = delay;
     }
 
-    public String getName() {
+    public String getName()
+    {
 
         return this.getClass().getSimpleName();
     }
