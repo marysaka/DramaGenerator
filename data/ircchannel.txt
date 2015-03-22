@@ -27,3 +27,7 @@
 #md_5
 #forgeessentials
 #OpenEye
+#Chisel
+#Razz
+#Kihira
+#FTB-Wiki
