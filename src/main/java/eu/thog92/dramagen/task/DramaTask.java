@@ -11,8 +11,10 @@ import java.util.regex.Pattern;
 public class DramaTask implements ITask<String>
 {
 
-    private static final Pattern REGEX = Pattern.compile(Pattern.quote("[")
+    private static final Pattern INSERTION_REGEX = Pattern.compile(Pattern.quote("[")
             + "(.*?)" + Pattern.quote("]"));
+    
+    private static final Pattern RANGE_REGEX = Pattern.compile("[0-9]+\\.\\.\\.[0-9]+");
     private Dictionary dictionary;
     private Random rand;
 
@@ -63,7 +65,7 @@ public class DramaTask implements ITask<String>
 
     private String replaceWords(String sentence)
     {
-        Matcher toReplaces = REGEX.matcher(sentence);
+        Matcher toReplaces = INSERTION_REGEX.matcher(sentence);
         while (toReplaces.find())
         {
             String toReplace = toReplaces.group(1);
@@ -78,12 +80,25 @@ public class DramaTask implements ITask<String>
             } else if (toReplace.startsWith("%rand"))
             {
                 int pos = toReplace.indexOf("=");
-                String maxStr = toReplace.substring(pos + 1, toReplace.length());
-                int num = 0;
-                while (num == 0)
-                    num = rand.nextInt(Integer.valueOf(maxStr));
+                String input = toReplace.substring(pos + 1, toReplace.length());
+                Matcher matcher = RANGE_REGEX.matcher(input);
+                int value = 0;
+                if (matcher.find())
+                {
+                    String[] bounds = input.split("\\.\\.\\.");
+                    int lowerBound = Integer.parseInt(bounds[0]);
+                    int upperBound = Integer.parseInt(bounds[1]);
+                    while (value == 0)
+                    {
+                        value = rand.nextInt(upperBound - lowerBound) + lowerBound;
+                    }
+                } else
+                {
+                    while (value == 0)
+                        value = rand.nextInt(Integer.valueOf(input));
+                }
 
-                sentence = sentence.replaceFirst(toReplace, String.valueOf(num));
+                sentence = sentence.replaceFirst(toReplace, String.valueOf(value));
                 continue;
             } else if (toReplace.startsWith("%prime"))
             {
@@ -112,7 +127,7 @@ public class DramaTask implements ITask<String>
 
 
             String replacement = targetReplacementList.get(replacementID);
-            Matcher subReplaces = REGEX.matcher(replacement);
+            Matcher subReplaces = INSERTION_REGEX.matcher(replacement);
 
             if (subReplaces.find())
             {

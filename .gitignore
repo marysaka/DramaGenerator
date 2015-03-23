@@ -126,3 +126,6 @@ gradle-app.setting
 
 blacklist.txt
 config.txt
+
+# We don't want someone to publish its key in the wild Internet.
+config.yml
