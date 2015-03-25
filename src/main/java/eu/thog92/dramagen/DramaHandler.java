@@ -1,8 +1,8 @@
-package eu.thog92.dramagen.http.handler;
+package eu.thog92.dramagen;
 
 import com.sun.net.httpserver.HttpExchange;
 import com.sun.net.httpserver.HttpHandler;
-import eu.thog92.dramagen.task.DramaTask;
+import eu.thog92.generator.core.tasks.GeneratorTask;
 
 import java.io.*;
 import java.nio.charset.Charset;
@@ -11,11 +11,11 @@ public class DramaHandler implements HttpHandler
 {
 
     private boolean plainTxt;
-    private DramaTask dramaTask;
+    private GeneratorTask generatorTask;
 
-    public DramaHandler(DramaTask dramaTask, boolean plain)
+    public DramaHandler(GeneratorTask generatorTask, boolean plain)
     {
-        this.dramaTask = dramaTask;
+        this.generatorTask = generatorTask;
         this.plainTxt = plain;
     }
 
@@ -30,7 +30,7 @@ public class DramaHandler implements HttpHandler
 
     private void handlePlain(HttpExchange ext) throws IOException
     {
-        String randomDrama = dramaTask.generateSentence(false);
+        String randomDrama = generatorTask.generateSentence(false);
         if (randomDrama == null)
             randomDrama = "The Minecraft Drama Generator has been bought by Microsoft.";
 
@@ -54,7 +54,7 @@ public class DramaHandler implements HttpHandler
                 out.append(line);
             }
             reader.close();
-            String randomDrama = dramaTask.generateSentence(false);
+            String randomDrama = generatorTask.generateSentence(false);
             if (randomDrama == null)
             {
                 randomDrama = "The Minecraft Drama Generator has been bought by Microsoft.";
