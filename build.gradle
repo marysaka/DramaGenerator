@@ -5,14 +5,19 @@ apply plugin: 'application'
 
 group = 'eu.thog92'
 archivesBaseName = 'ClickbaitGenerator'
-mainClassName = 'eu.thog92.dramagen.DramaGenerator'
-version = 1.0
+mainClassName = 'eu.thog92.generator.BotGeneratorImpl'
+version = 1.1
 
 repositories {
     mavenCentral()
+    maven {
+        name = "rx14"
+        url = "http://mvn.rx14.co.uk/local/"
+    }
 }
 
 dependencies {
+    compile 'eu.thog92:BotGenerator:1.0.5'
     compile 'org.twitter4j:twitter4j-core:4.0.2'
     compile 'com.esotericsoftware.yamlbeans:yamlbeans:1.08'
 }
