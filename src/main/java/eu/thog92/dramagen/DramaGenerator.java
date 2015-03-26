@@ -49,13 +49,15 @@ public class DramaGenerator
             e.printStackTrace();
         }
 
+        System.out.println("Drama is ready.");
+
     }
 
     @SubscribeEvent
     public void onHTTPServerInit(HttpStartEvent event)
     {
+        System.out.println("Loading HTTP Server...");
         HttpServer server = event.getServer();
-        System.out.println("Here");
         server.createContext("/drama", new DramaHandler(generatorTask, false));
         server.createContext("/api/drama", new DramaHandler(generatorTask, true));
     }
