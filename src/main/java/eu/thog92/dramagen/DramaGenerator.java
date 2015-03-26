@@ -3,6 +3,7 @@ package eu.thog92.dramagen;
 
 import com.sun.net.httpserver.HttpServer;
 import eu.thog92.generator.api.BotGenerator;
+import eu.thog92.generator.api.Dictionary;
 import eu.thog92.generator.api.annotations.Module;
 import eu.thog92.generator.api.annotations.SubscribeEvent;
 import eu.thog92.generator.api.config.Configuration;
@@ -13,6 +14,7 @@ import eu.thog92.generator.core.tasks.GeneratorTask;
 import eu.thog92.generator.core.tasks.TwitterTask;
 import eu.thog92.generator.twitter.TwitterModule;
 
+import java.io.File;
 import java.io.IOException;
 
 @Module(name = "Drama", version = "1.1", dependencies = "after:twitter;")
@@ -22,10 +24,13 @@ public class DramaGenerator
     private GeneratorTask generatorTask;
     private ScheduledTask twitterTask;
     private HttpServer server;
+    private Dictionary dictionary;
 
     @SubscribeEvent
     public void init(InitEvent event)
     {
+        File moduleDir = new File(event.getConfigDir(), "Drama");
+        moduleDir.mkdirs();
         generator = event.getBotGenerator();
         Configuration configuration = new Configuration(event.getConfigDir(), "Drama");
         DramaConfiguration dramaConfiguration = configuration.readFromFile(DramaConfiguration.class);
@@ -35,8 +40,19 @@ public class DramaGenerator
             configuration.saveToDisk(dramaConfiguration);
         }
 
+        this.dictionary = new Dictionary();
+        this.dictionary.setDir(new File(moduleDir, "dictionary"));
+        try
+        {
+            this.dictionary.loadCombinations();
+            this.dictionary.loadBlackList();
+        } catch (IOException e)
+        {
+            e.printStackTrace();
+            System.exit(49);
+        }
 
-        this.generatorTask = new GeneratorTask();
+        this.generatorTask = new GeneratorTask(this.dictionary);
         this.twitterTask = new TwitterTask(TwitterModule.getInstance().getTwitter(), this.generatorTask, true, null);
         this.twitterTask.setDelay(dramaConfiguration.tweetDelay);
 
