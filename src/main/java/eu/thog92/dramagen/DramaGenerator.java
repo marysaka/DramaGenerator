@@ -10,8 +10,8 @@ import eu.thog92.generator.api.config.Configuration;
 import eu.thog92.generator.api.events.HttpStartEvent;
 import eu.thog92.generator.api.events.InitEvent;
 import eu.thog92.generator.api.tasks.ScheduledTask;
-import eu.thog92.generator.core.tasks.GeneratorTask;
-import eu.thog92.generator.core.tasks.TwitterTask;
+import eu.thog92.generator.api.tasks.GeneratorTask;
+import eu.thog92.generator.twitter.TwitterTask;
 import eu.thog92.generator.twitter.TwitterModule;
 
 import java.io.File;

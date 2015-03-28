@@ -2,7 +2,7 @@ package eu.thog92.dramagen;
 
 import com.sun.net.httpserver.HttpExchange;
 import com.sun.net.httpserver.HttpHandler;
-import eu.thog92.generator.core.tasks.GeneratorTask;
+import eu.thog92.generator.api.tasks.GeneratorTask;
 
 import java.io.*;
 import java.nio.charset.Charset;
