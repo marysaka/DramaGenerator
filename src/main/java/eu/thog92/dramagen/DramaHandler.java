@@ -10,8 +10,8 @@ import java.nio.charset.Charset;
 public class DramaHandler implements HttpHandler
 {
 
-    private boolean plainTxt;
-    private GeneratorTask generatorTask;
+    private final boolean plainTxt;
+    private final GeneratorTask generatorTask;
 
     public DramaHandler(GeneratorTask generatorTask, boolean plain)
     {
