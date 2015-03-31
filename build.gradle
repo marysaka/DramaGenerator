@@ -17,19 +17,6 @@ repositories {
 }
 
 dependencies {
-    compile 'eu.thog92:BotGenerator:1.0.13:api'
-    compile 'eu.thog92:BotGenerator:1.0.13:twitter'
-}
-
-task allInOneJar(type: Jar) {
-    manifest {
-        attributes 'Main-Class': mainClassName
-    }
-    classifier = 'all'
-    from { configurations.compile.collect { it.isDirectory() ? it : zipTree(it) } }
-    with jar
-}
-
-artifacts {
-    archives allInOneJar
+    compile 'eu.thog92:BotGenerator:1.1.22:api'
+    compile 'eu.thog92:BotGenerator:1.1.22:twitter'
 }

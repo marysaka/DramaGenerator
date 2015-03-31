@@ -9,10 +9,11 @@ import eu.thog92.generator.api.annotations.SubscribeEvent;
 import eu.thog92.generator.api.config.Configuration;
 import eu.thog92.generator.api.events.HttpStartEvent;
 import eu.thog92.generator.api.events.InitEvent;
-import eu.thog92.generator.api.tasks.ScheduledTask;
 import eu.thog92.generator.api.tasks.GeneratorTask;
-import eu.thog92.generator.twitter.TwitterTask;
+import eu.thog92.generator.api.tasks.ScheduledTask;
+import eu.thog92.generator.twitter.TwitterConfiguration;
 import eu.thog92.generator.twitter.TwitterModule;
+import eu.thog92.generator.twitter.TwitterTask;
 
 import java.io.File;
 import java.io.IOException;
@@ -32,12 +33,23 @@ public class DramaGenerator
         File moduleDir = new File(event.getConfigDir(), "Drama");
         moduleDir.mkdirs();
         generator = event.getBotGenerator();
-        Configuration configuration = new Configuration(event.getConfigDir(), "Drama");
-        DramaConfiguration dramaConfiguration = configuration.readFromFile(DramaConfiguration.class);
+        Configuration globalSettings = new Configuration(event.getConfigDir(), "Drama");
+        DramaConfiguration dramaConfiguration = globalSettings.readFromFile(DramaConfiguration.class);
+
+        Configuration twitterSettings = new Configuration(event.getConfigDir(), "Drama", "twitter");
+
         if (dramaConfiguration == null)
         {
             dramaConfiguration = new DramaConfiguration(3600, 8080);
-            configuration.saveToDisk(dramaConfiguration);
+            globalSettings.saveToDisk(dramaConfiguration);
+        }
+
+        TwitterConfiguration twitterConfiguration = twitterSettings.readFromFile(TwitterConfiguration.class);
+        if (twitterConfiguration == null)
+        {
+            System.err.println("[Drama Generator] A new Twitter config have been created! Complete it before restart.");
+            twitterSettings.saveToDisk(new TwitterConfiguration("", "", "", "", ""));
+            System.exit(666);
         }
 
         this.dictionary = new Dictionary();
@@ -53,7 +65,7 @@ public class DramaGenerator
         }
 
         this.generatorTask = new GeneratorTask(this.dictionary);
-        this.twitterTask = new TwitterTask(TwitterModule.getInstance().getTwitter(), this.generatorTask, true, null);
+        this.twitterTask = new TwitterTask(TwitterModule.getInstance().createTwitterInstance(twitterConfiguration.debug, twitterConfiguration.consumerKey, twitterConfiguration.consumerSecret, twitterConfiguration.accessToken, twitterConfiguration.accessTokenSecret), this.generatorTask, twitterConfiguration.sendTweetOnStartup, null);
         this.twitterTask.setDelay(dramaConfiguration.tweetDelay);
 
         generator.getTasksManager().scheduleTask(this.twitterTask);
