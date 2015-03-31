@@ -3,3 +3,8 @@ tweets
 claims
 confirms
 denies
+mentions
+announces
+answers
+affirms
+disclaims 
