@@ -26,3 +26,10 @@ h6 {
     color: #777;
 }
 
+#logo {
+    margin-bottom: -10px;
+    width: 40px;
+    height: 40px;
+    display: inline;
+}
+
