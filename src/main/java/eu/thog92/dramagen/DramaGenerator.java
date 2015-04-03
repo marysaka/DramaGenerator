@@ -33,7 +33,7 @@ public class DramaGenerator
         File moduleDir = new File(event.getConfigDir(), "Drama");
         moduleDir.mkdirs();
         generator = event.getBotGenerator();
-        Configuration globalSettings = new Configuration(event.getConfigDir(), "Drama");
+        Configuration globalSettings = new Configuration(event.getConfigDir(), "Drama", "drama");
         DramaConfiguration dramaConfiguration = globalSettings.readFromFile(DramaConfiguration.class);
 
         Configuration twitterSettings = new Configuration(event.getConfigDir(), "Drama", "twitter");
