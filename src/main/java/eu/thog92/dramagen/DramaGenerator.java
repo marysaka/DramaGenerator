@@ -10,6 +10,7 @@ import eu.thog92.generator.api.config.Configuration;
 import eu.thog92.generator.api.events.HttpStartEvent;
 import eu.thog92.generator.api.events.InitEvent;
 import eu.thog92.generator.api.events.irc.IRCChannelMessage;
+import eu.thog92.generator.api.events.irc.IRCPrivateMessage;
 import eu.thog92.generator.api.events.irc.IRCReady;
 import eu.thog92.generator.api.irc.IRCClient;
 import eu.thog92.generator.api.irc.IRCConfiguration;
@@ -33,6 +34,7 @@ public class DramaGenerator
     private HttpServer server;
     private Dictionary dictionary;
     private IRCConfiguration ircConfiguration;
+    private DramaConfiguration dramaConfiguration;
 
     @SubscribeEvent
     public void init(InitEvent event)
@@ -41,7 +43,7 @@ public class DramaGenerator
         moduleDir.mkdirs();
         generator = event.getBotGenerator();
         Configuration globalSettings = new Configuration(event.getConfigDir(), "Drama", "drama");
-        DramaConfiguration dramaConfiguration = globalSettings.readFromFile(DramaConfiguration.class);
+        dramaConfiguration = globalSettings.readFromFile(DramaConfiguration.class);
 
         Configuration twitterSettings = new Configuration(event.getConfigDir(), "Drama", "twitter");
 
@@ -126,9 +128,34 @@ public class DramaGenerator
     @SubscribeEvent
     public void onMesssage(IRCChannelMessage event)
     {
-        if(event.getMessage().contains(".drama"))
+        if(event.getMessage().contains(dramaConfiguration.commandPrefix + dramaConfiguration.dramaCommand))
         {
             event.getIRCClient().sendToChat(event.getChannel(), this.generatorTask.generateSentence(false));
+        }
+        else if(event.getMessage().toLowerCase().startsWith(dramaConfiguration.commandPrefix + "join"))
+        {
+            String[] split = event.getMessage().split(" ");
+            if(split.length == 0)
+                event.getIRCClient().sendToChat(event.getChannel(), "Illegal Arguments");
+            else
+                event.getIRCClient().joinChannel(split[1]);
+        }
+    }
+
+    @SubscribeEvent
+    public void onPrivateMessage(IRCPrivateMessage event)
+    {
+        if(event.getMessage().contains(dramaConfiguration.dramaCommand))
+        {
+            event.getIRCClient().sendToChat(event.getSender(), this.generatorTask.generateSentence(false));
+        }
+        else if(event.getMessage().toLowerCase().startsWith("join"))
+        {
+            String[] split = event.getMessage().split(" ");
+            if(split.length == 0)
+                event.getIRCClient().sendToChat(event.getSender(), "Illegal Arguments");
+            else
+                event.getIRCClient().joinChannel(split[1]);
         }
     }
 }
