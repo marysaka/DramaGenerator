@@ -17,6 +17,6 @@ repositories {
 }
 
 dependencies {
-    compile 'eu.thog92:BotGenerator:1.1.23:api'
-    compile 'eu.thog92:BotGenerator:1.1.23:twitter'
+    compile 'eu.thog92:BotGenerator:1.2.29:api'
+    compile 'eu.thog92:BotGenerator:1.2.29:twitter'
 }

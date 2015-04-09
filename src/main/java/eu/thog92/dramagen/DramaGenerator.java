@@ -10,8 +10,8 @@ import eu.thog92.generator.api.config.Configuration;
 import eu.thog92.generator.api.events.HttpStartEvent;
 import eu.thog92.generator.api.events.InitEvent;
 import eu.thog92.generator.api.events.irc.IRCChannelMessage;
-import eu.thog92.generator.api.irc.IRCClient;
 import eu.thog92.generator.api.events.irc.IRCReady;
+import eu.thog92.generator.api.irc.IRCClient;
 import eu.thog92.generator.api.irc.IRCConfiguration;
 import eu.thog92.generator.api.tasks.GeneratorTask;
 import eu.thog92.generator.api.tasks.ScheduledTask;
@@ -20,7 +20,9 @@ import eu.thog92.generator.twitter.TwitterModule;
 import eu.thog92.generator.twitter.TwitterTask;
 
 import java.io.File;
+import java.io.FileOutputStream;
 import java.io.IOException;
+import java.io.PrintStream;
 
 @Module(name = "Drama", version = "1.1", dependencies = "after:twitter;")
 public class DramaGenerator
@@ -87,7 +89,13 @@ public class DramaGenerator
         try
         {
             this.server = generator.getHttpManager().createHTTPServer(dramaConfiguration.httpPort);
-            IRCClient ircClient = IRCClient.createIRCClient(ircConfiguration.hostname, ircConfiguration.port, ircConfiguration.username).addChannels(ircConfiguration.channels);
+            File logFile = new File("log/drama/irc.log");
+            logFile.getParentFile().mkdirs();
+            logFile.delete();
+            logFile.createNewFile();
+
+            FileOutputStream out = new FileOutputStream(logFile);
+            IRCClient ircClient = IRCClient.createIRCClient(ircConfiguration.hostname, ircConfiguration.port, ircConfiguration.username).addChannels(ircConfiguration.channels).setPrintStream(new PrintStream(out));
             ircClient.connect();
         } catch (IOException e)
         {
