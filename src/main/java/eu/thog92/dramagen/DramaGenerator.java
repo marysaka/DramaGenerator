@@ -9,6 +9,10 @@ import eu.thog92.generator.api.annotations.SubscribeEvent;
 import eu.thog92.generator.api.config.Configuration;
 import eu.thog92.generator.api.events.HttpStartEvent;
 import eu.thog92.generator.api.events.InitEvent;
+import eu.thog92.generator.api.events.irc.IRCChannelMessage;
+import eu.thog92.generator.api.irc.IRCClient;
+import eu.thog92.generator.api.events.irc.IRCReady;
+import eu.thog92.generator.api.irc.IRCConfiguration;
 import eu.thog92.generator.api.tasks.GeneratorTask;
 import eu.thog92.generator.api.tasks.ScheduledTask;
 import eu.thog92.generator.twitter.TwitterConfiguration;
@@ -26,6 +30,7 @@ public class DramaGenerator
     private ScheduledTask twitterTask;
     private HttpServer server;
     private Dictionary dictionary;
+    private IRCConfiguration ircConfiguration;
 
     @SubscribeEvent
     public void init(InitEvent event)
@@ -52,6 +57,16 @@ public class DramaGenerator
             System.exit(666);
         }
 
+        Configuration ircSettings = new Configuration(event.getConfigDir(), "Drama", "irc");
+        IRCConfiguration ircConfiguration = ircSettings.readFromFile(IRCConfiguration.class);
+
+        if (ircConfiguration == null)
+        {
+            System.err.println("[Drama Generator] A new IRC config have been created! Complete it before restart.");
+            ircSettings.saveToDisk(new IRCConfiguration("", 6666, "DramaGenerator", new String[] {"#WAMM"}));
+            System.exit(333);
+        }
+
         this.dictionary = new Dictionary();
         this.dictionary.setDir(new File(moduleDir, "dictionary"));
         try
@@ -72,12 +87,16 @@ public class DramaGenerator
         try
         {
             this.server = generator.getHttpManager().createHTTPServer(dramaConfiguration.httpPort);
+            IRCClient ircClient = IRCClient.createIRCClient(ircConfiguration.hostname, ircConfiguration.port, ircConfiguration.username).addChannels(ircConfiguration.channels);
+            ircClient.connect();
         } catch (IOException e)
         {
             e.printStackTrace();
         }
 
         System.out.println("Drama is ready.");
+
+
 
     }
 
@@ -88,5 +107,20 @@ public class DramaGenerator
         HttpServer server = event.getServer();
         server.createContext("/drama", new DramaHandler(generatorTask, false));
         server.createContext("/api/drama", new DramaHandler(generatorTask, true));
+    }
+
+    @SubscribeEvent
+    public void onReady(IRCReady event)
+    {
+
+    }
+
+    @SubscribeEvent
+    public void onMesssage(IRCChannelMessage event)
+    {
+        if(event.getMessage().contains(".drama"))
+        {
+            event.getIRCClient().sendToChat(event.getChannel(), this.generatorTask.generateSentence(false));
+        }
     }
 }
