@@ -91,14 +91,18 @@ public class DramaGenerator
         try
         {
             this.server = generator.getHttpManager().createHTTPServer(dramaConfiguration.httpPort);
-            File logFile = new File("log/drama/irc.log");
-            logFile.getParentFile().mkdirs();
-            logFile.delete();
-            logFile.createNewFile();
 
-            FileOutputStream out = new FileOutputStream(logFile);
-            IRCClient ircClient = IRCClient.createIRCClient(ircConfiguration.hostname, ircConfiguration.port, ircConfiguration.username).addChannels(ircConfiguration.channels).setPrintStream(new PrintStream(out));
-            ircClient.connect();
+            if(ircConfiguration.enabled)
+            {
+                File logFile = new File("log/drama/irc.log");
+                logFile.getParentFile().mkdirs();
+                logFile.delete();
+                logFile.createNewFile();
+
+                FileOutputStream out = new FileOutputStream(logFile);
+                IRCClient ircClient = IRCClient.createIRCClient(ircConfiguration.hostname, ircConfiguration.port, ircConfiguration.username).addChannels(ircConfiguration.channels).setPrintStream(new PrintStream(out));
+                ircClient.connect();
+            }
         } catch (IOException e)
         {
             e.printStackTrace();
