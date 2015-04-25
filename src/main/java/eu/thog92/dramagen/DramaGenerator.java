@@ -62,7 +62,7 @@ public class DramaGenerator
         }
 
         Configuration ircSettings = new Configuration(event.getConfigDir(), "Drama", "irc");
-        IRCConfiguration ircConfiguration = ircSettings.readFromFile(IRCConfiguration.class);
+        ircConfiguration = ircSettings.readFromFile(IRCConfiguration.class);
 
         if (ircConfiguration == null)
         {
@@ -153,13 +153,13 @@ public class DramaGenerator
         {
             event.getIRCClient().sendToChat(event.getSender(), this.generatorTask.generateSentence(false));
         }
-        else if(event.getMessage().toLowerCase().startsWith("join"))
+        /*else if(event.getMessage().toLowerCase().startsWith("join"))
         {
             String[] split = event.getMessage().split(" ");
             if(split.length == 0)
                 event.getIRCClient().sendToChat(event.getSender(), "Illegal Arguments");
             else
                 event.getIRCClient().joinChannel(split[1]);
-        }
+        }*/
     }
 }
