@@ -16,16 +16,16 @@ import eu.thog92.generator.api.irc.IRCClient;
 import eu.thog92.generator.api.irc.IRCConfiguration;
 import eu.thog92.generator.api.tasks.GeneratorTask;
 import eu.thog92.generator.api.tasks.ScheduledTask;
-import eu.thog92.generator.twitter.TwitterConfiguration;
-import eu.thog92.generator.twitter.TwitterModule;
-import eu.thog92.generator.twitter.TwitterTask;
+import eu.thog92.generator.api.twitter.TwitterConfiguration;
+import eu.thog92.generator.api.twitter.TwitterModule;
+import eu.thog92.generator.api.twitter.TwitterTask;
 
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.PrintStream;
 
-@Module(name = "Drama", version = "1.1", dependencies = "after:twitter;")
+@Module(name = "Drama", version = "1.2", dependencies = "after:twitter;")
 public class DramaGenerator
 {
     private BotGenerator generator;
@@ -109,8 +109,6 @@ public class DramaGenerator
         }
 
         System.out.println("Drama is ready.");
-
-
 
     }
 
