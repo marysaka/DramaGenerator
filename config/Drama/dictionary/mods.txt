@@ -124,3 +124,8 @@ Blood Magic
 Redstone Arsenal
 MFFS
 Resonant Engine
+TransformersMod
+JurassiCraft
+Clay Soldiers
+Lucky Blocks
+OreSpawn
