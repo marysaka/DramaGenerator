@@ -125,3 +125,8 @@ Redstone Arsenal
 MFFS
 Resonant Engine
 Thermal Smeltery
+TransformersMod
+JurassiCraft
+Clay Soldiers
+Lucky Blocks
+OreSpawn
