@@ -2,6 +2,7 @@ apply plugin: 'java'
 apply plugin: 'eclipse'
 apply plugin: 'idea'
 apply plugin: 'application'
+apply plugin: 'maven'
 
 group = 'eu.thog92'
 archivesBaseName = 'DramaGenerator'
