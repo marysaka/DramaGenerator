@@ -133,3 +133,9 @@ Twilight Forest
 The Erebus
 PneumaticCraft
 FML
+Thermal Smeltery
+TransformersMod
+JurassiCraft
+Clay Soldiers
+Lucky Blocks
+OreSpawn

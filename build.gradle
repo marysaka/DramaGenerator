@@ -17,21 +17,5 @@ repositories {
 }
 
 dependencies {
-    compile 'eu.thog92:BotGenerator:1.0.10'
-    compile 'org.twitter4j:twitter4j-core:4.0.2'
-    compile 'com.esotericsoftware.yamlbeans:yamlbeans:1.08'
-    compile 'com.google.code.gson:gson:2.3.1'
-}
-
-task allInOneJar(type: Jar) {
-    manifest {
-        attributes 'Main-Class': mainClassName
-    }
-    classifier = 'all'
-    from { configurations.compile.collect { it.isDirectory() ? it : zipTree(it) } }
-    with jar
-}
-
-artifacts {
-    archives allInOneJar
+    compile 'eu.thog92:BotGenerator:1.2.37:api'
 }
