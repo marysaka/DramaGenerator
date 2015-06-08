@@ -17,5 +17,5 @@ repositories {
 }
 
 dependencies {
-    compile 'eu.thog92:BotGenerator:1.2.37:api'
+    compile 'eu.thog92:BotGenerator:1.2.38:api'
 }
