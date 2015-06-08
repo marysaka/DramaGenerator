@@ -6,7 +6,9 @@ apply plugin: 'application'
 group = 'eu.thog92'
 archivesBaseName = 'ClickbaitGenerator'
 mainClassName = 'eu.thog92.generator.BotGeneratorImpl'
-version = 1.1
+version = appVersion
+
+if (System.env.BUILD_NUMBER != null) version = "$version.$System.env.BUILD_NUMBER"
 
 repositories {
     mavenCentral()
