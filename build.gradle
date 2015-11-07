@@ -9,6 +9,9 @@ archivesBaseName = 'DramaGenerator'
 mainClassName = 'eu.thog92.generator.BotGeneratorImpl'
 version = appVersion
 
+sourceCompatibility = 1.8
+targetCompatibility = 1.8
+
 if (System.env.BUILD_NUMBER != null) version = "$version.$System.env.BUILD_NUMBER"
 
 repositories {
@@ -20,5 +23,5 @@ repositories {
 }
 
 dependencies {
-    compile 'eu.thog92:BotGenerator:1.2.38:api'
+    compile 'eu.thog92:BotGenerator:1.3.46:api'
 }

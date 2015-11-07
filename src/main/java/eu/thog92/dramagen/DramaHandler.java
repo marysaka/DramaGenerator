@@ -36,7 +36,7 @@ public class DramaHandler implements HttpHandler
 
         OutputStream os = ext.getResponseBody();
         ext.sendResponseHeaders(200, randomDrama.length());
-        os.write(randomDrama.getBytes());
+        os.write(randomDrama.getBytes(Charset.forName("UTF-8")));
         os.close();
     }
 
@@ -46,7 +46,7 @@ public class DramaHandler implements HttpHandler
         {
             OutputStream os = ext.getResponseBody();
             InputStream in = DramaHandler.class.getResourceAsStream("/public/drama.html");
-            BufferedReader reader = new BufferedReader(new InputStreamReader(in));
+            BufferedReader reader = new BufferedReader(new InputStreamReader(in, "UTF-8"));
             StringBuilder out = new StringBuilder();
             String line;
             while ((line = reader.readLine()) != null)
