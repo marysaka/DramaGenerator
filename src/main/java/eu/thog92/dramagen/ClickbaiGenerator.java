@@ -22,8 +22,9 @@ import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.PrintStream;
+import java.nio.charset.Charset;
 
-@Module(name = "Clickbait", version = "1.2", dependencies = "after:twitter;")
+@Module(name = "Clickbait", version = "1.3", dependencies = "after:twitter;")
 public class ClickbaiGenerator
 {
     private BotGenerator generator;
@@ -72,8 +73,7 @@ public class ClickbaiGenerator
         this.dictionary.setDir(new File(moduleDir, "dictionary"));
         try
         {
-            this.dictionary.loadCombinations();
-            this.dictionary.loadBlackList();
+            this.dictionary.load();
         } catch (IOException e)
         {
             e.printStackTrace();
@@ -95,9 +95,10 @@ public class ClickbaiGenerator
                 logFile.createNewFile();
 
                 FileOutputStream out = new FileOutputStream(logFile);
-                IRCClient ircClient = IRCClient.createIRCClient(ircConfiguration.hostname, ircConfiguration.port, ircConfiguration.username).addChannels(ircConfiguration.channels).setPrintStream(new PrintStream(out));
+                IRCClient ircClient = IRCClient.createIRCClient(ircConfiguration.hostname, ircConfiguration.port, ircConfiguration.username).addChannels(ircConfiguration.channels).setPrintStream(new PrintStream(out, false, "UTF-8"));
                 ircClient.connect();
             }
+            generator.checkAndCreateIRCClient(ircConfiguration, "clickbait");
         } catch (IOException e)
         {
             e.printStackTrace();
