@@ -1,7 +1,5 @@
 package eu.thog92.dramagen;
 
-
-import com.sun.net.httpserver.HttpServer;
 import eu.thog92.generator.api.BotGenerator;
 import eu.thog92.generator.api.Dictionary;
 import eu.thog92.generator.api.annotations.Module;
@@ -12,6 +10,7 @@ import eu.thog92.generator.api.events.InitEvent;
 import eu.thog92.generator.api.events.irc.IRCChannelMessage;
 import eu.thog92.generator.api.events.irc.IRCPrivateMessage;
 import eu.thog92.generator.api.events.irc.IRCReady;
+import eu.thog92.generator.api.http.HttpServer;
 import eu.thog92.generator.api.irc.IRCConfiguration;
 import eu.thog92.generator.api.tasks.GeneratorTask;
 import eu.thog92.generator.api.tasks.ScheduledTask;
@@ -85,7 +84,7 @@ public class DramaGenerator
         generator.getTasksManager().scheduleTask(this.twitterTask);
         try
         {
-            generator.getHttpManager().createHTTPServer(dramaConfiguration.httpPort);
+            generator.getHttpManager().createHTTPServer(dramaConfiguration.httpPort, new File(moduleDir, "ssl"));
             generator.checkAndCreateIRCClient(ircConfiguration, "drama");
         } catch (IOException e)
         {
@@ -101,8 +100,9 @@ public class DramaGenerator
     {
         System.out.println("Loading HTTP Server...");
         HttpServer server = event.getServer();
-        server.createContext("/drama", new DramaHandler(generatorTask, false));
         server.createContext("/api/drama", new DramaHandler(generatorTask, true));
+        server.createContext("/drama", new DramaHandler(generatorTask, false));
+
     }
 
     @SubscribeEvent
