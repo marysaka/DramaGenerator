@@ -10,4 +10,4 @@ a ZIP file
 a JAR file
 Gradle buildscripts
 a GitHub repository
-a BitBucket repository
+a Bitbucket repository
