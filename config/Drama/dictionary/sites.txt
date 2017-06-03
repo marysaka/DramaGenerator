@@ -7,7 +7,7 @@ IC2 Forums
 BuildCraft Forums
 MinecraftForge Forums
 GitHub
-BitBucket
+Bitbucket
 Espernet IRC
 Espernet
 ForgeCraft
