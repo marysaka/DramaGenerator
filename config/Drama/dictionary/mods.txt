@@ -124,18 +124,15 @@ Blood Magic
 Redstone Arsenal
 MFFS
 Resonant Engine
-Ender Book
-Code Chicken Core
-Decocraft
-Ex Nihilo
-Funky Locomotion
-Twilight Forest
-The Erebus
-PneumaticCraft
-FML
 Thermal Smeltery
 TransformersMod
 JurassiCraft
 Clay Soldiers
 Lucky Blocks
 OreSpawn
+ProjectX
+Reliquia
+ProjectRed Extended
+Better Creepers
+Alex's Things
+Carbon

@@ -1,6 +1,0 @@
-crash
-bugs
-lags
-freezes
-corrupted chunks
-corrupted worlds

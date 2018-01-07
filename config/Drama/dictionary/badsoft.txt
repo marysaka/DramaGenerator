@@ -4,8 +4,6 @@ adware
 DRM
 viruses
 trojans
-worms
-rootkits
 keyloggers
 stolen code
 easter eggs
